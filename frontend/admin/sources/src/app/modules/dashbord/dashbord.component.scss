@@ -1,0 +1,27 @@
+.dashbord-form {
+  padding: 20px 60px;
+  max-width: inherit;
+  height: 660px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-height: 660px;
+  overflow: auto;
+}
+
+.dashbord-header-xxlarge,
+.dashbord-header-large {
+  width: 100%;
+  color: #3f51b5;
+  font-weight: 500;
+}
+
+.dashbord-header-xxlarge {
+  font-size: xx-large;
+}
+
+.dashbord-header-large {
+  font-size: large;
+  margin: 28px 0px;
+  width: 100%;
+}

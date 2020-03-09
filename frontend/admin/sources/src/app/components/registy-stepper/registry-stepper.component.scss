@@ -1,0 +1,40 @@
+.client-agreement {
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 400px;
+  overflow-y: auto;
+  text-align: justify;
+  word-wrap: normal;
+  padding: 10px;
+}
+
+.client-agreement-checkbox-content {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 100%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  margin: 10px 0px 10px 0px;
+}
+
+.client-agreement-checkbox-text {
+  width: 90%;
+  margin: 0px 0px 0px 10px;
+}
+
+.step-form {
+  min-width: auto;
+  width: 100%;
+  height: fit-content;
+}
+
+.step-form-1-2 {
+  width: 50%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+}

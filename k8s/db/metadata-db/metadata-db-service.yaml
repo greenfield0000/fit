@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: metadata-db
+  labels:
+    environment: dev
+    tier: metadata
+spec:
+  ports:
+    - port: 27017
+      targetPort: 27017
+  selector:
+    environment: dev
+    tier: metadata
+  clusterIP: None

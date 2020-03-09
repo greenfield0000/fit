@@ -1,0 +1,142 @@
+version: "3.4"
+services:
+ 
+  zookeeper:
+    image: wurstmeister/zookeeper:3.4.6
+    ports:
+      - "2181:2181"
+    container_name: zookeeper
+
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      - KAFKA_CREATE_TOPICS="create-user:1:1" # topic:partition:replicas
+      - KAFKA_ADVERTISED_HOST_NAME=kafka
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ADVERTISED_PORT=9092
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - zookeeper
+        
+  #frontend
+  b2b:
+    container_name: fit-b2b
+    image: greenfield0000/fit-b2b-front:1.0.0
+    ports:
+      - "4200:4200"
+    volumes:
+      - "~/repository/fit/frontend/admin/sources:/angular/interface-admin"
+    network_mode: host
+
+  #auth-service
+  auth-service:
+    container_name: fit-auth-service
+    image: greenfield0000/auth-service:1.0.0
+    ports:
+      - "8081:8081"
+      - "9081:9081"
+    depends_on:
+      - auth-db
+      - gateway-service
+    links:
+      - auth-db:auth-db
+      - kafka:kafka  
+
+  # auth-db
+  auth-db:
+    container_name: auth-db
+    hostname: auth-db
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    volumes:
+      - "~/backup_database/mysql/auth-db:/var/lib/mysql"
+    environment:
+      - "MYSQL_ROOT_PASSWORD=123"
+      - "MYSQL_DATABASE=auth-db"
+      - "MYSQL_TCP_PORT=3306"
+    depends_on:
+      - kafka
+
+  #menu-service
+  menu-service:
+    container_name: menu-service
+    image: greenfield0000/menu-service:1.0.0
+    ports:
+      - "8082:8082"
+      - "9082:9082"
+    depends_on:
+      - metadata-db
+      - gateway-service
+    links:
+      - metadata-db:metadata-db
+      - auth-service:auth-service
+
+  # metadata-db
+  metadata-db:
+    container_name: metadata-db
+    hostname: metadata-db
+    image: mongo:latest
+    volumes:
+      - "~/backup_database/mongodb/volume/metadata-db:/data/db"
+      - "~/backup_database/mongodb/volume/metadata-db/log:/var/log/mongodb"
+    ports:
+      - "27017:27017"
+
+  #journal-service
+  journal-service:
+    container_name: journal-service
+    image: greenfield0000/journal-service:1.0.0
+    restart: always
+    ports:
+      - "8083:8083"
+      - "9083:9083"
+    depends_on:
+      - metadata-db
+      - gateway-service
+    links:
+      - metadata-db:metadata-db
+
+  # fias-kladr-service
+  kladr-service:
+    container_name: kladr-service
+    restart: always
+    image: greenfield0000/kladr-service:1.0.0
+
+  #gateway-service
+  gateway-service:
+    container_name: gateway-service
+    restart: always
+    image: greenfield0000/gateway-service:1.0.0
+    ports:
+      - "8080:8080"
+      - "9080:9080"
+  
+  personal-db:
+    container_name: personal-db
+    image: postgres:9.6
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_USER=rootuser
+      - POSTGRES_DB=personal-db
+      - PGDATA=/var/lib/postgresql/data/pgdata/personal-db
+    volumes:
+      - "~/backup_database/postgres/personal-db:/var/lib/postgresql/data/pgdata/personal-db"
+    depends_on:
+      - kafka
+
+  personal-service:
+    container_name: personal-service
+    image: greenfield0000/personal-service:1.0.0
+    ports:
+      - "8079:8080"
+      - "9079:8787"
+    depends_on:
+      - personal-db
+

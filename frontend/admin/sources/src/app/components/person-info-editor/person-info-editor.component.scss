@@ -1,0 +1,20 @@
+@import "../../modules/dashbord/dashbord.component.scss";
+
+.main-form {
+  width: 80%;
+  display: inline-table;
+  flex-direction: column;
+  margin: 30px 0px;
+
+  .block {
+    width: 100%;
+    margin: 20px 0px;
+
+    .field-block {
+      width: 560px;
+      display: flex;
+      flex-wrap: wrap;
+      margin: 15px 40px;
+    }
+  }
+}
