@@ -3,16 +3,7 @@
     <form [formGroup]="accountDataFormGroup">
       <ng-template matStepLabel>Аккаунт</ng-template>
       <div class="step-form-1-2">
-        <div class="form-field">
-          <mat-form-field>
-            <mat-select placeholder="Тип учетной записи" formControlName="accountRole" name="accountRole">
-              <mat-option *ngFor="let role of accountRoles" [value]="role.id">
-                {{role.viewValue}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-
+        
         <div class="form-field">
           <mat-form-field>
             <input matInput formControlName="nickName" placeholder="Никнейм" name="nickName" required>

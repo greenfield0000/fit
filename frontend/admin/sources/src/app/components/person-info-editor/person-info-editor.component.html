@@ -1,18 +1,6 @@
 <form [formGroup]="personInfoFormGroup">
   <div class="main-form">
-    <div class="block">
-      <span class="dashbord-header-large">Должность</span>
-      <div class="field-block">
-        <mat-form-field>
-          <mat-select placeholder="Тип учетной записи" formControlName="accountRole" name="accountRole">
-            <mat-option *ngFor="let role of accountRoles" [value]="role.id">
-              {{role.viewValue}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
-
+    
     <div class="block">
       <span class="dashbord-header-large">Персональные данные</span>
       <div class="field-block">

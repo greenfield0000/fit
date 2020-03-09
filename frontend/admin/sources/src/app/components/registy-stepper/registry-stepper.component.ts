@@ -9,15 +9,6 @@ import { AppRouteService } from 'src/app/services/app-route-service/app-route.se
 import { AppAccountContextService } from 'src/app/services/app-account-context-service/app-account-context.service';
 import { User } from 'src/app/classes/user';
 
-// временная константа хранения справочника типов учетных записей
-// тип взят с сервисов
-export enum AccountRole {
-  // Официант
-  WAITER = 5,
-  // Бармен
-  BARMEN = 6
-}
-
 @Component({
   selector: 'app-registry-stepper',
   templateUrl: './registry-stepper.component.html',
@@ -42,10 +33,6 @@ export class RegistryStepperComponent extends ReactiveForm implements OnInit {
   // вставка пользовательского соглашения
   public agreementHTML: string;
   public isAgree: boolean = false;
-  public accountRoles: any[] = [
-    { viewValue: 'Бармен', id: AccountRole.BARMEN },
-    { viewValue: 'Официант', id: AccountRole.WAITER }
-  ];
 
   @Input()
   public account: AccountEntity = new AccountEntity();
@@ -70,7 +57,6 @@ export class RegistryStepperComponent extends ReactiveForm implements OnInit {
 
   ngOnInit() {
     this.accountDataFormGroup = this._formBuilder.group({
-      accountRole: this.accountRoles,
       nickName: [this.account.$nickName, Validators.required],
       login: [this.account.$login, Validators.required],
       password: [this.account.$password, Validators.required],

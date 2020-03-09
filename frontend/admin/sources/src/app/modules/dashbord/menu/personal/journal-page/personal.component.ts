@@ -26,7 +26,7 @@ export class PersonalComponent implements OnInit, IJournal<PersonalComponent> {
   @ViewChild('journal') journal: JournalComponent<PersonalComponent>;
   protected readonly journalSysName: string = 'Personals-jrnl';
 
-  public readonly journalHeader: string = 'Журнал "Персонал"';
+  public readonly journalHeader: string = 'Журнал "Клиенты"';
 
   protected _appRouterService: AppRouteService;
   protected _personalService: PersonalService;

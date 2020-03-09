@@ -4,7 +4,6 @@ import { Address } from 'src/app/classes/address/address.class';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { AccountEntity } from 'src/app/classes/accountEntity';
 import { User } from 'src/app/classes/user';
-import { AccountRole } from '../registy-stepper/registry-stepper.component';
 import { ChangeDetectionStrategy } from '@angular/compiler/src/core';
 
 /**
@@ -24,10 +23,6 @@ export class PersonInfoEditorComponent extends ReactiveForm implements OnInit {
   public personInfoFormGroup: FormGroup;
 
   public address: Address = new Address();
-  public accountRoles: any[] = [
-    { viewValue: 'Бармен', id: AccountRole.BARMEN },
-    { viewValue: 'Официант', id: AccountRole.WAITER }
-  ];
 
   protected registrySubscription(): void {
     throw new Error('Method not implemented.');
@@ -39,7 +34,6 @@ export class PersonInfoEditorComponent extends ReactiveForm implements OnInit {
 
   ngOnInit() {
     this.personInfoFormGroup = this._formBuilder.group({
-      accountRole: this.accountRoles,
       id: [this.user.$id],
       name: [this.user.$name, Validators.required],
       surName: [this.user.$surName, Validators.required],
