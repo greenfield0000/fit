@@ -47,6 +47,7 @@ export class PersonalAddComponent extends PersonalComponent implements OnInit {
     this._http.post<SimpleResult<User[]>>(environment.gatePath.journal_location + '/doButtonHandler', queryParams)
       .subscribe((result: SimpleResult<User[]>) => {
         this._journalService.refreshLoadData(result);
+        this.back();
       });
   }
 

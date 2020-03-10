@@ -1,9 +1,8 @@
 import { KladrService } from 'src/app/services/kladr-service/kladr.service';
 
-import { AccountEntity } from './../../../classes/accountEntity';
 import { AppAccountContextService } from './../../../services/app-account-context-service/app-account-context.service';
 import { AppRouteService } from './../../../services/app-route-service/app-route.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 
 @Component({
@@ -18,9 +17,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private _appAccount: AppAccountContextService,
-    private _router: AppRouteService,
-    private kladr: KladrService
-  ) { }
+    private _router: AppRouteService  ) { }
 
   /**
    * Войти

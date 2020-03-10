@@ -25,7 +25,7 @@ services:
   #frontend
   fit-b2b:
     container_name: fit-b2b
-    image: greenfield0000/fit-b2b-front:1.0.3
+    image: greenfield0000/fit-b2b-front:1.0.4
     ports:
       - "4200:4200"
     network_mode: host
